@@ -87,9 +87,9 @@ module.on('update', function() {
                 if(MTick >= module.settings.MT.get() && !mc.thePlayer.onGround) {
                     mc.thePlayer.motionY = 0.04;
                     MTick = 0;
-                }
-            }
-    }
+                };
+            };
+    };
     if(module.settings.Mode.get() == "Minemora2") {
             if(!mc.thePlayer.onGround) {
                 mc.thePlayer.motionY = -0.08;
