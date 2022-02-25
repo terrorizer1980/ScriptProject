@@ -1,7 +1,7 @@
 var scriptName = "MinemoraSpeed";
 var scriptAuthor = "DinoFeng";
 var scriptVersion = "1.0";
-var latestupdate = "25/2/2022";
+var scriptGithub = "https://github.com/DinoFengz/MinemoraBoostSpeed";
 var script = registerScript({
     name: "Minemora Speed",
     version: "1.0",
@@ -51,6 +51,10 @@ script.registerModule({
             default: 4,
             min: 0,
             max: 10
+        }),
+        ADS:Setting.boolean({
+            name: "About",
+            default: true
         })
     }
 }, 
@@ -60,6 +64,15 @@ module.on('enable', function() {
     DTick = 0;
     FTick = 0;
     BTick = 1;
+    if(module.settings.ADS.get() == true) {
+        chat.print("§0§m====================");
+        chat.print("§8ScriptName §7: §e§l" + scriptName);
+        chat.print("§8ScriptVersion §7: §e§l" + scriptVersion);
+        chat.print("§8ScriptDescription §7: §e§l" + module.description);
+        chat.print("§8ScriptCategory §7: §e§l" + module.category);
+        chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
+        chat.print("§0§m====================");
+    }
 });
 module.on('update', function() {
     if(module.settings.BM.get() == "Timer") {
