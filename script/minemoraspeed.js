@@ -1,7 +1,7 @@
 var scriptName = "MinemoraSpeed";
 var scriptAuthor = "DinoFeng";
 var scriptVersion = "1.0";
-var scriptGithub = "https://github.com/DinoFengz/MinemoraBoostSpeed";
+var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "Minemora Speed",
     version: "1.0",
@@ -55,11 +55,18 @@ script.registerModule({
         ADS:Setting.boolean({
             name: "About",
             default: true
+        }),
+        AD:Setting.boolean({
+            name:"AutoAds",
+            default: true
         })
     }
 }, 
     function (module) {
 module.on('enable', function() {
+    if(module.settings.AD.get() == true) {
+        Chat.print("https://github.com/DinoFengz/LiquidBounce");
+    }
     MSpeed = 15;
     DTick = 0;
     FTick = 0;
@@ -74,7 +81,7 @@ module.on('enable', function() {
         chat.print("§0§m====================");
     }
 });
-module.on('update', function() {
+module.on('move', function() {
     if(module.settings.BM.get() == "Timer") {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
