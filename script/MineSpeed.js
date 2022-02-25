@@ -29,7 +29,7 @@ function setMoveSpeed(_speed) {
         setDiagSpeed(_speed*-mc.thePlayer.moveStrafing);
     } else {
         setSpeed(_speed * mc.thePlayer.moveForward);
-    }
+    };
 };
 function getSpeed() {
     return Math.sqrt(Math.pow(mc.thePlayer.motionX,2) + Math.pow(mc.thePlayer.motionZ,2))
