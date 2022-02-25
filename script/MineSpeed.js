@@ -72,13 +72,13 @@ module.on('enable', function() {
     FTick = 0;
     BTick = 1;
     if(module.settings.ADS.get() == true) {
-        chat.print("§0§m====================");
+        chat.print("§0§m==================================================");
         chat.print("§8ScriptName §7: §e§l" + scriptName);
         chat.print("§8ScriptVersion §7: §e§l" + scriptVersion);
         chat.print("§8ScriptDescription §7: §e§l" + module.description);
         chat.print("§8ScriptCategory §7: §e§l" + module.category);
         chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
-        chat.print("§0§m====================");
+        chat.print("§0§m==================================================");
     }
 });
 module.on('move', function() {
