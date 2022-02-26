@@ -14,9 +14,13 @@ var BTick = 1;
 Math.radians = function(degrees) {
     return degrees * Math.PI / 180;
 };
-function ChatP(X) {
-    Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + X)
+//Function
+function ChatP(_Chat) {
+    Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + _Chat)
 };
+function Timer(_Timer) {
+    mc.timer.timerSpeed = _Timer;
+}
 function setSpeed(_speed) {
     var playerYaw = Math.radians(mc.thePlayer.rotationYaw);
     mc.thePlayer.motionX = _speed * -Math.sin(playerYaw);
@@ -34,47 +38,50 @@ function setMoveSpeed(_speed) {
         setSpeed(_speed * mc.thePlayer.moveForward);
     }
 };
-function getSpeed() {
-    return Math.sqrt(Math.pow(mc.thePlayer.motionX,2) + Math.pow(mc.thePlayer.motionZ,2))
-};
-function getRandom(max) {return Math.floor(Math.random() * Math.floor(max))};
+//Settings
+var s_a = Setting.list({
+            name: "BoostMode",
+            default: "Timer",
+            values: ["None","Timer","TimerGround","Speed"]
+            })
+
+var s_b = Setting.float({
+            name: "Timer-Timer",
+            default: 4,
+            min: 1,
+            max: 10
+            })
+
+var s_c = Setting.float({
+            name: "TimerGround-Timer",
+            default: 4,
+            min: 1,
+            max: 10
+            })
+
+var s_d = Setting.float({
+            name: "Speed-Speed",
+            default: 2,
+            min: 0,
+            max: 10
+            })
+
+var s_e = Setting.boolean({
+            name: "About",
+            default: true
+            })
+
 script.registerModule({
     name: "MineSpeed",
     description: "Speed For Minemora",
     category: "Movement",
     tag: "NULL",
     settings: {
-        BM:Setting.list({
-            name: "BoostMode",
-            default: "Timer",
-            values: ["None","Timer","TimerGround","Speed"]
-        }),
-        MFTi:Setting.float({
-            name: "Timer-Timer",
-            default: 4,
-            min: 1,
-            max: 10
-        }),
-        TGTi:Setting.float({
-            name: "TimerGround-Timer",
-            default: 4,
-            min: 1,
-            max: 10
-        }),
-        Speed:Setting.float({
-            name: "Speed-Speed",
-            default: 2,
-            min: 0,
-            max: 10
-        }),
-        ADS:Setting.boolean({
-            name: "About",
-            default: true
-        }),
-        AD:Setting.boolean({
-            name:"AutoAds",
-            default: true
-        })
+        BM: s_a,
+        MFTi: s_b,
+        TGTi: s_c,
+        Speed: s_d,
+        ADS: s_e
     }
 }, 
     function (module) {
@@ -83,26 +90,14 @@ module.on('enable', function() {
     DTick = 0;
     FTick = 0;
     BTick = 1;
-    if(module.settings.AD.get() == true) {
-        mc.thePlayer.sendChatMessage("https://github.com/DinoFengz/LiquidBounce");
-    }
-    if(module.settings.ADS.get() == true) {
-        chat.print("§0§m==================================================");
-        chat.print("§8ScriptName §7: §e§l" + scriptName);
-        chat.print("§8ScriptVersion §7: §e§l" + scriptVersion);
-        chat.print("§8ScriptDescription §7: §e§l" + module.description);
-        chat.print("§8ScriptCategory §7: §e§l" + module.category);
-        chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
-        chat.print("§0§m==================================================");
-    }
 });
 module.on('update', function() {
     if(module.settings.BM.get() == "None" && mc.gameSettings.keyBindForward.pressed) {
         module.tag=module.settings.BM.get();
         if(mc.thePlayer.onGround) {
             mc.thePlayer.jump();
-        }
-    }
+        };
+    };
     if(module.settings.BM.get() == "Timer") {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
@@ -120,12 +115,12 @@ module.on('update', function() {
         };
         if(MSpeed<100) {
             if(MSpeed>=17) {
-                    mc.timer.timerSpeed = 1;
+                    Timer(1);
             };
         };
         if(MSpeed>80 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             MSpeed = 0;
-            mc.timer.timerSpeed = module.settings.MFTi.get();
+            Timer(module.settings.MFTi.get());
             ChatP("§7§lBoost §f: §e§l" + DTick);
         };
     };
@@ -145,12 +140,12 @@ module.on('update', function() {
         };
         if(MSpeed<100) {
             if(MSpeed>=20) {
-                    mc.timer.timerSpeed = 1;
+                    Timer(1);
                             };
             };
         if(MSpeed>80 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             MSpeed = 0;
-            mc.timer.timerSpeed = module.settings.TGTi.get();
+            Timer(module.settings.TGTi.get());
             ChatP("§7§lBoost §f: §e§l" + DTick);
         };
     };
@@ -188,6 +183,6 @@ module.on('update', function() {
     };
 });
 module.on('disable', function() {
-    mc.timer.timerSpeed = 1;
+    Timer(1);
 });
 });
