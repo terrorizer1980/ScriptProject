@@ -8,8 +8,8 @@ var script = registerScript({
     authors: ["DinoFeng"]
 });
 var A = 0;
-var L1;
-var L2;
+var AA;
+var AB;
 var s_a = Setting.list({
             name: "ClientMode",
             default: "LiquidBounce",
@@ -42,24 +42,25 @@ script.registerModule({
 }, 
     function (module) {
 module.on('enable', function() {
-    Timer(5);
     if(module.settings.CM.get() == "FDPClient") {
         var F = moduleManager.getModule("Fly");
         var FM = F.getValue("Mode");
         var FNT = F.getValue("neruxvace-ticks");
         F.setState(true);
-        L1 = FM.get();
+        AA = FM.get();
         FM.set("NeruxVace");
         FNT.set(3);
+        Timer(5);
     }
     if(module.settings.CM.get() == "LiquidBounce") {
         var F = moduleManager.getModule("Glide");
         var FM = F.getValue("Mode");
         var FNT = F.getValue("neruxvace-ticks");
         F.setState(true);
-        L2 = FM.get();
+        AB = FM.get();
         FM.set("NeruxVace");
         FNT.set(3);
+        Timer(5);
     }
     if(module.settings.ToggleMessage.get() == true) {
         chat.print("§0§m==================================================");
@@ -80,17 +81,17 @@ module.on('update', function() {
     }
 })
 module.on('disable', function() {
-    Timer(5);
+    Timer(1);
     if(module.settings.CM.get() == "FDPClient") {
         var F = moduleManager.getModule("Fly");
         var FM = F.getValue("Mode");
-        FM.set(L1);
+        FM.set(AA);
         F.setState(false);
     }
     if(module.settings.CM.get() == "LiquidBounce") {
         var F = moduleManager.getModule("Glide");
         var FM = F.getValue("Mode");
-        FM.set(L2);
+        FM.set(AB);
         F.setState(false);
     }
 });
