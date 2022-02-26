@@ -10,31 +10,39 @@ var script = registerScript({
 var A = 0;
 var L1;
 var L2;
-script.registerModule({
-    name: "MineGlide",
-    description: "Glide On Minemora!",
-    category: "Movement",
-    settings: {
-        CM:Setting.list({
+var s_a = Setting.list({
             name: "ClientMode",
             default: "LiquidBounce",
             values:["LiquidBounce","FDPClient"]
-        }),
-        ToggleMessage:Setting.boolean({
+        })
+
+var s_b = Setting.boolean({
             name: "ToggleMessage",
             default: true
-        }),
-        Max:Setting.float({
+        })
+
+var s_c = Setting.float({
             name: "Max",
             default: 20,
             min: 0,
             max: 30
         })
+function Timer(_Timer) {
+    mc.timer.timerSpeed = _Timer;
+}
+script.registerModule({
+    name: "MineGlide",
+    description: "Glide On Minemora!",
+    category: "Movement",
+    settings: {
+        CM: s_a,
+        ToggleMessage: s_b,
+        Max: s_c
     }
 }, 
     function (module) {
 module.on('enable', function() {
-    mc.timer.timerSpeed = 5;
+    Timer(5);
     if(module.settings.CM.get() == "FDPClient") {
         var F = moduleManager.getModule("Fly");
         var FM = F.getValue("Mode");
@@ -72,7 +80,7 @@ module.on('update', function() {
     }
 })
 module.on('disable', function() {
-    mc.timer.timerSpeed = 1;
+    Timer(5);
     if(module.settings.CM.get() == "FDPClient") {
         var F = moduleManager.getModule("Fly");
         var FM = F.getValue("Mode");
