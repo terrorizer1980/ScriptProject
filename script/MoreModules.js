@@ -1,69 +1,93 @@
 var scriptName = "MoreModules";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "4.0";
+var scriptVersion = "5.0";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
-var latestupdate = "25/2/2022";
 var script = registerScript({
     name: "MoreModules",
-    version: "4.0",
+    version: "5.0",
     authors: ["DinoFeng"]
 });
+var s_a = Setting.list({
+        name:"Mode",
+        default: "FirstLaunch",
+        values: ["Killaura","Scaffold","Fly","Step","HighJump","LongJump","Phase","Criticals","Cheststealer","InventoryCleaner","Custom","All"]
+        })
+var s_b = Setting.list({
+        name:"ClientMode",
+        default: "LiquidBounceb73",
+        values: ["FDPClient","LiquidBounceb73"]
+        })
+var s_c = Setting.text({
+        name: "CustomName",
+        default: "Fly"
+    })
+var s_d = Setting.text({
+        name: "CustomModule-1",
+        default: "Mode"
+    })
+var s_e = Setting.text({
+        name: "CustomModule-2",
+        default: "vanilla-speed"
+    })
+var s_f = Setting.text({
+        name: "CustomModule-3",
+        default: "motionreset"
+    })
+var s_g = Setting.text({
+        name: "CustomModule-4",
+        default: ""
+    })
+var s_h = Setting.text({
+        name: "CustomModule-5",
+        default: ""
+    })
+var s_i = Setting.boolean({
+        name: "AutoDisable",
+        default: false
+    })
+var s_j = Setting.boolean({
+        name: "AutoAds",
+        default: true
+    })
+//function
+function DChat(_Chat) {
+    Chat.print("§8[§c§lModule§b§lDisabler§8] §fToggled §e§l" + _Chat + "§f!")
+}
+function TChat(_Chat) {
+    Chat.print("§8[§c§lModule§b§lToggler§8] §fToggled §e§l" + _Chat + "§f!")
+}
+
 script.registerModule({
     name: "ModuleChecker",
     description: "Cool / Smooth ModuleChecker For LiquidBounceb73 / FDPClient!",
     category: "Client",
     tag: "NULL",
     settings: {
-    Mode: Setting.list({
-        name:"Mode",
-        default: "FirstLaunch",
-        values: ["Killaura","Scaffold","Fly","Step","HighJump","LongJump","Phase","Criticals","Cheststealer","InventoryCleaner","Custom","All"]
-        }),
-    ClientMode: Setting.list({
-        name:"ClientMode",
-        default: "LiquidBounceb73",
-        values: ["FDPClient","LiquidBounceb73"]
-        }),
-    MN: Setting.text({
-        name: "CustomName",
-        default: "Fly"
-    }),
-    CM: Setting.text({
-        name: "CustomModule-1",
-        default: "Mode"
-    }),
-    CM2: Setting.text({
-        name: "CustomModule-2",
-        default: "vanilla-speed"
-    }),
-    CM3: Setting.text({
-        name: "CustomModule-3",
-        default: "motionreset"
-    }),
-    CM4: Setting.text({
-        name: "CustomModule-4",
-        default: ""
-    }),
-    CM5: Setting.text({
-        name: "CustomModule-5",
-        default: "test"
-    }),
-    AD: Setting.boolean({
-        name: "AutoDisable",
-        default: false
-    })
+    Mode: s_a,
+    ClientMode: s_b,
+    MN: s_c,
+    CM: s_d,
+    CM2: s_e,
+    CM3: s_f,
+    CM4: s_g,
+    CM5: s_h,
+    AD: s_i,
+    ADS: s_j
     }
 }, 
     function (module) {
 module.on('enable', function () {
+    if(module.settings.ADS.get() == true) {
+        mc.thePlayer.SendChatMessage("More Module For LiquidBounce In " + scriptGithub);
+    }
     if(module.settings.Mode.get() == "FirstLaunch") {
-        chat.print("§0§m====================");
+        chat.print("§0§m==================================================");
         chat.print("§8ScriptName §7: §e§l" + scriptName);
         chat.print("§8ScriptVersion §7: §e§l" + scriptVersion);
         chat.print("§8ScriptDescription §7: §e§l" + module.description);
         chat.print("§8ScriptCategory §7: §e§l" + module.category);
         chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
-        chat.print("§0§m====================");
+        chat.print("§0§m==================================================");
     };
     if(module.settings.ClientMode.get() == "FDPClient") {
     if(module.settings.Mode.get() == "Fly") {
@@ -477,7 +501,7 @@ module.on('update', function() {
     var ModulesName = moduleManager.getModule(module.settings.MN.get());
         if(ModulesName.getState() == true) {
         ModulesName.setState(false);
-        chat.print("§7[§fModuleDisabler§7] §fDisabled" + module.settings.MN.get() + "!");
+        DChat(module.settings.MN.get());
             };
 });
 });
@@ -498,7 +522,7 @@ module.on('update', function() {
     var ModulesName = moduleManager.getModule(module.settings.MN.get());
         if(ModulesName.getState() == false) {
         ModulesName.setState(true);
-        chat.print("§7[§fModuleDisabler§7] §fToggled" + module.settings.MN.get() + "!");
+        TChat(module.settngs.MN.get());
             };
 });
 });
