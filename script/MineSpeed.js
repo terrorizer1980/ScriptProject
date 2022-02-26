@@ -94,7 +94,7 @@ module.on('enable', function() {
     }
 });
 module.on('update', function() {
-    if(module.settings.BM.get() == "None") {
+    if(module.settings.BM.get() == "None" && mc.gameSettings.keyBindForward.pressed) {
         module.tag=module.settings.BM.get();
         if(mc.thePlayer.onGround) {
             mc.thePlayer.jump();
@@ -103,7 +103,7 @@ module.on('update', function() {
     if(module.settings.BM.get() == "Timer") {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
-        if(MSpeed<60 && mc.thePlayer.onGround) {
+        if(MSpeed<60 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             if(MSpeed>=18){
                 mc.thePlayer.jump();
             };
@@ -111,7 +111,7 @@ module.on('update', function() {
         if(MSpeed>=60) {
             if(MSpeed<61){
             FTick = DTick+1;  
-              Chat.print("§7Ready For §e§l" + FTick + " §7Boost!");
+              Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7Ready For §e§l" + FTick + " §7Boost!");
               DTick++
             };
         };
@@ -120,23 +120,23 @@ module.on('update', function() {
                     mc.timer.timerSpeed = 1;
             };
         };
-        if(MSpeed>80 && mc.thePlayer.onGround) {
+        if(MSpeed>80 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             MSpeed = 0;
             mc.timer.timerSpeed = module.settings.MFTi.get();
-            Chat.print("§7§lBoost §f: §e§l" + DTick);
+            Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7§lBoost §f: §e§l" + DTick);
         };
     };
     if(module.settings.BM.get() == "TimerGround" && BTick==1) {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
         if(DTick==5) {
-            Chat.print("§8Disable BoostMode");
+            Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§8Disable BoostMode");
             BTick = 0;
         }
         if(MSpeed>=60) {
             if(MSpeed<61){
             FTick = DTick+1;  
-              Chat.print("§7Ready For §e§l" + FTick + " §7Boost!");
+              Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7Ready For §e§l" + FTick + " §7Boost!");
               DTick++
                 };
         };
@@ -145,20 +145,20 @@ module.on('update', function() {
                     mc.timer.timerSpeed = 1;
                             };
             };
-        if(MSpeed>80 && mc.thePlayer.onGround) {
+        if(MSpeed>80 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             MSpeed = 0;
             mc.timer.timerSpeed = module.settings.TGTi.get();
-            Chat.print("§7§lBoost §f: §e§l" + DTick);
+            Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7§lBoost §f: §e§l" + DTick);
         };
     };
     if(module.settings.BM.get() == "Speed" && BTick==1) {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick 
         MSpeed++
         if(DTick==3) {
-            Chat.print("§8Disable BoostMode");
+            Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§8Disable BoostMode");
             BTick = 0;
         };
-        if(MSpeed<60 && mc.thePlayer.onGround) {
+        if(MSpeed<60 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             if(MSpeed>=15){
                     mc.thePlayer.jump();
             };
@@ -166,14 +166,14 @@ module.on('update', function() {
         if(MSpeed>=60) {
             if(MSpeed<61){
                 FTick = DTick+1;  
-                Chat.print("§7Ready For §e§l" + FTick + "§7 Boost!");
+                Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7Ready For §e§l" + FTick + "§7 Boost!");
                 DTick++
             };
         };
-        if(MSpeed>80 && mc.thePlayer.onGround) {
+        if(MSpeed>80 && mc.thePlayer.onGround && mc.gameSettings.keyBindForward.pressed) {
             MSpeed = 0;
             setMoveSpeed(module.settings.Speed.get());
-            chat.print("§7§lBoost §f: §e§l" + DTick);
+            Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + "§7§lBoost §f: §e§l" + DTick);
         };
     };
     if(BTick==0) {
