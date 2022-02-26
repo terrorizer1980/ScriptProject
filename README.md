@@ -1,2 +1,2 @@
-Here Is DinoFengz Public Github!
-U can get latest script / config in here!
+All script created by DinoFeng.
+Dont change the name if u want to copy :
