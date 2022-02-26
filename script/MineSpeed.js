@@ -1,10 +1,10 @@
 var scriptName = "MineSpeed";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "1.0";
+var scriptVersion = "2.0";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "Mine Speed",
-    version: "1.0",
+    version: "2.0",
     authors: ["DinoFeng"]
 });
 var MSpeed = 0;
@@ -44,11 +44,23 @@ script.registerModule({
         BM:Setting.list({
             name: "BoostMode",
             default: "Timer",
-            values: ["Timer","TimerGround","Speed"]
+            values: ["None","Timer","TimerGround","Speed"]
         }),
         MFTi:Setting.float({
-            name: "Timer",
+            name: "Timer-Timer",
             default: 4,
+            min: 1,
+            max: 10
+        }),
+        TGTi:Setting.float({
+            name: "TimerGround-Timer",
+            default: 4,
+            min: 1,
+            max: 10
+        }),
+        Speed:Setting.float({
+            name: "Speed-Speed",
+            default: 2,
             min: 0,
             max: 10
         }),
@@ -82,87 +94,95 @@ module.on('enable', function() {
     }
 });
 module.on('update', function() {
+    if(module.settings.BM.get() == "None") {
+        module.tag=module.settings.BM.get();
+        if(mc.thePlayer.onGround) {
+            mc.thePlayer.jump();
+        }
+    }
     if(module.settings.BM.get() == "Timer") {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
         if(MSpeed<60 && mc.thePlayer.onGround) {
             if(MSpeed>=18){
-                    mc.thePlayer.jump();
-                };
+                mc.thePlayer.jump();
             };
+        };
         if(MSpeed>=60) {
             if(MSpeed<61){
             FTick = DTick+1;  
-              Chat.print("Ready For " + FTick + " Boost!");
-                DTick++
-                };
+              Chat.print("§7Ready For §e§l" + FTick + " §7Boost!");
+              DTick++
+            };
         };
         if(MSpeed<100) {
             if(MSpeed>=17) {
                     mc.timer.timerSpeed = 1;
-                            };
             };
+        };
         if(MSpeed>80 && mc.thePlayer.onGround) {
             MSpeed = 0;
             mc.timer.timerSpeed = module.settings.MFTi.get();
-            chat.print("Boost " + DTick);
+            Chat.print("§7§lBoost §f: §e§l" + DTick);
         };
     };
     if(module.settings.BM.get() == "TimerGround" && BTick==1) {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick;
         MSpeed++
         if(DTick==5) {
-            Chat.print("Disable BoostMode")
+            Chat.print("§8Disable BoostMode");
             BTick = 0;
         }
-        if(MSpeed==40) {
+        if(MSpeed>=60) {
+            if(MSpeed<61){
             FTick = DTick+1;  
-              Chat.print("Ready For " + FTick + " Boost!");
-        }
-        if(MSpeed==20) {
-            mc.timer.timerSpeed = 1;
-            DTick++ 
-            }
-        if(MSpeed>50 && mc.thePlayer.onGround) {
+              Chat.print("§7Ready For §e§l" + FTick + " §7Boost!");
+              DTick++
+                };
+        };
+        if(MSpeed<100) {
+            if(MSpeed>=20) {
+                    mc.timer.timerSpeed = 1;
+                            };
+            };
+        if(MSpeed>80 && mc.thePlayer.onGround) {
             MSpeed = 0;
-            mc.timer.timerSpeed = module.settings.MFTi.get();
-            chat.print("Boost " + (DTick+1));
-        }
-    }
+            mc.timer.timerSpeed = module.settings.TGTi.get();
+            Chat.print("§7§lBoost §f: §e§l" + DTick);
+        };
+    };
     if(module.settings.BM.get() == "Speed" && BTick==1) {
         module.tag=module.settings.BM.get() + " " + MSpeed + " " + DTick 
         MSpeed++
         if(DTick==3) {
-            Chat.print("Disable BoostMode");
+            Chat.print("§8Disable BoostMode");
             BTick = 0;
-        }
+        };
         if(MSpeed<60 && mc.thePlayer.onGround) {
             if(MSpeed>=15){
                     mc.thePlayer.jump();
-                }
-            }
+            };
+        };
         if(MSpeed>=60) {
             if(MSpeed<61){
-            FTick = DTick+1;  
-              Chat.print("Ready For " + FTick + " Boost!");
-                }
-        }
+                FTick = DTick+1;  
+                Chat.print("§7Ready For §e§l" + FTick + "§7 Boost!");
+                DTick++
+            };
+        };
         if(MSpeed>80 && mc.thePlayer.onGround) {
             MSpeed = 0;
-            setMoveSpeed(2);
-            chat.print("Boost " + DTick);
-        }
-        if(MSpeed==10) {
-            DTick++
-        }
-    }
+            setMoveSpeed(module.settings.Speed.get());
+            chat.print("§7§lBoost §f: §e§l" + DTick);
+        };
+    };
     if(BTick==0) {
         var Speed2 = "NoBoost";
         module.tag=Speed2;
         if(mc.thePlayer.onGround) {
             mc.thePlayer.jump();
-            }
-    }
+        };
+    };
 });
 module.on('disable', function() {
     mc.timer.timerSpeed = 1;
