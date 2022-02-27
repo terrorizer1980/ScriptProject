@@ -1,15 +1,14 @@
 var scriptName = "FastLogin";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "1.0";
+var scriptVersion = "2.0";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "FastLogin",
-    version: "1.0",
+    version: "2.0",
     authors: ["DinoFeng"]
 });
 var S02PacketChat = Java.type("net.minecraft.network.play.server.S02PacketChat");
-var A = 0;
-var B = 0;
+var LoginTick = 0;
 script.registerModule({
     name: "FastLogin",
     description: "The Fastest Login Script For LiquidBounce / FDPClient",
@@ -53,26 +52,30 @@ script.registerModule({
         chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
         chat.print("§0§m==================================================");
     };
-
-    A = 1;
-    B = 1;
+    LoginTick = 1;
     });
     module.on("disable", function () {
     });
     module.on("packet", function (event) {
     var packet = event.getPacket();
+    LoginTick++
+    if(LoginTick==100) {
+        LoginTick = 0;
+    }
     if (packet instanceof S02PacketChat) {
-    if(packet.getChatComponent().getUnformattedText().contains(module.settings.RW.get()) && A==1) {
-    mc.thePlayer.sendChatMessage(module.settings.RC.get() + " " + module.settings.Pass.get() + " " + module.settings.Pass.get());
-    A = 0;
-    }
-    if(packet.getChatComponent().getUnformattedText().contains(module.settings.LW.get()) && B==1) {
-    mc.thePlayer.sendChatMessage(module.settings.LC.get() + " " + module.settings.Pass.get());
-    B = 0;
-    }
+        if(LoginTick>70) {
+                if(packet.getChatComponent().getUnformattedText().contains(module.settings.RW.get())) {
+                    mc.thePlayer.sendChatMessage(module.settings.RC.get() + " " + module.settings.Pass.get() + " " + module.settings.Pass.get());
+                    LoginTick = 0;
+                }
+                if(packet.getChatComponent().getUnformattedText().contains(module.settings.LW.get())) {
+                    mc.thePlayer.sendChatMessage(module.settings.LC.get() + " " + module.settings.Pass.get());
+                    LoginTick = 0;
+                }
+            }
     }
     });
     module.on("update", function () { 
-        module.tag=module.settings.Pass.get();   
+        module.tag=module.settings.Pass.get();
     });
 });
