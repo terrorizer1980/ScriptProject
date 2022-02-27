@@ -60,10 +60,10 @@ script.registerModule({
     var packet = event.getPacket();
     LoginTick++
     if(LoginTick==100) {
-        LoginTick = 0;
+        LoginTick = 20;
     }
     if (packet instanceof S02PacketChat) {
-        if(LoginTick>70) {
+        if(LoginTick>20) {
                 if(packet.getChatComponent().getUnformattedText().contains(module.settings.RW.get())) {
                     mc.thePlayer.sendChatMessage(module.settings.RC.get() + " " + module.settings.Pass.get() + " " + module.settings.Pass.get());
                     LoginTick = 0;
