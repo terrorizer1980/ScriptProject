@@ -1,10 +1,10 @@
 var scriptName = "MineSpeed";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "2.0";
+var scriptVersion = "2.3";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "Mine Speed",
-    version: "2.0",
+    version: "2.3",
     authors: ["DinoFeng"]
 });
 var MSpeed = 0;
@@ -16,7 +16,7 @@ Math.radians = function(degrees) {
 };
 //Function
 function ChatP(_Chat) {
-    Chat.print("§8[§b§lMine§9§lSpeed§8] §f" + _Chat)
+    Chat.print("§8§l[§b§lMine§9§lSpeed§8§l] §f" + _Chat)
 };
 function Timer(_Timer) {
     mc.timer.timerSpeed = _Timer;
@@ -90,6 +90,17 @@ module.on('enable', function() {
     DTick = 0;
     FTick = 0;
     BTick = 1;
+    if(module.settings.ADS.get() == true) {
+        chat.print("§0§m==================================================");
+        chat.print("§8ScriptName §7: §e§l" + scriptName);
+        chat.print("§8ScriptVersion §7: §e§l" + scriptVersion);
+        chat.print("§8ScriptDescription §7: §e§l" + module.description);
+        chat.print("§8ScriptCategory §7: §e§l" + module.category);
+        chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
+        chat.print("§0§m==================================================");
+        module.settings.ADS.set(false);
+    };
+
 });
 module.on('update', function() {
     if(module.settings.BM.get() == "None" && mc.gameSettings.keyBindForward.pressed) {
