@@ -1,10 +1,10 @@
 var scriptName = "MoreModules";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "5.0";
+var scriptVersion = "5.1";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "MoreModules",
-    version: "5.0",
+    version: "5.1",
     authors: ["DinoFeng"]
 });
 var s_a = Setting.list({
