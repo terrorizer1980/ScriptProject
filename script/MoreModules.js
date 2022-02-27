@@ -7,48 +7,6 @@ var script = registerScript({
     version: "5.1",
     authors: ["DinoFeng"]
 });
-var s_a = Setting.list({
-        name:"Mode",
-        default: "FirstLaunch",
-        values: ["Killaura","Scaffold","Fly","Step","HighJump","LongJump","Phase","Criticals","Cheststealer","InventoryCleaner","Custom","All"]
-        })
-var s_b = Setting.list({
-        name:"ClientMode",
-        default: "LiquidBounceb73",
-        values: ["FDPClient","LiquidBounceb73"]
-        })
-var s_c = Setting.text({
-        name: "CustomName",
-        default: "Fly"
-    })
-var s_d = Setting.text({
-        name: "CustomModule-1",
-        default: "Mode"
-    })
-var s_e = Setting.text({
-        name: "CustomModule-2",
-        default: "vanilla-speed"
-    })
-var s_f = Setting.text({
-        name: "CustomModule-3",
-        default: "motionreset"
-    })
-var s_g = Setting.text({
-        name: "CustomModule-4",
-        default: ""
-    })
-var s_h = Setting.text({
-        name: "CustomModule-5",
-        default: ""
-    })
-var s_i = Setting.boolean({
-        name: "AutoDisable",
-        default: false
-    })
-var s_j = Setting.boolean({
-        name: "AutoAds",
-        default: true
-    })
 //function
 function DChat(_Chat) {
     Chat.print("§8[§c§lModule§b§lDisabler§8] §fToggled §e§l" + _Chat + "§f!")
@@ -63,23 +21,48 @@ script.registerModule({
     category: "Client",
     tag: "NULL",
     settings: {
-    Mode: s_a,
-    ClientMode: s_b,
-    MN: s_c,
-    CM: s_d,
-    CM2: s_e,
-    CM3: s_f,
-    CM4: s_g,
-    CM5: s_h,
-    AD: s_i,
-    ADS: s_j
+    Mode: Setting.list({
+        name:"Mode",
+        default: "FirstLaunch",
+        values: ["Killaura","Scaffold","Fly","Step","HighJump","LongJump","Phase","Criticals","Cheststealer","InventoryCleaner","Custom","All"]
+        }),
+    ClientMode: Setting.list({
+        name:"ClientMode",
+        default: "LiquidBounceb73",
+        values: ["FDPClient","LiquidBounceb73"]
+        }),
+    MN: Setting.text({
+        name: "CustomName",
+        default: "Fly"
+    }),
+    CM: Setting.text({
+        name: "CustomModule-1",
+        default: "Mode"
+    }),
+    CM2: Setting.text({
+        name: "CustomModule-2",
+        default: "motionreset"
+    }),
+    CM3: Setting.text({
+        name: "CustomModule-3",
+        default: "motionreset"
+    }),
+    CM4: Setting.text({
+        name: "CustomModule-4",
+        default: "motionreset"
+    }),
+    CM5: Setting.text({
+        name: "CustomModule-5",
+        default: "motionreset"
+    }),
+    AD: Setting.boolean({
+        name: "AutoDisable",
+        default: false
+    })
     }
 }, 
     function (module) {
 module.on('enable', function () {
-    if(module.settings.ADS.get() == true) {
-        mc.thePlayer.SendChatMessage("More Module For LiquidBounce In " + scriptGithub);
-    }
     if(module.settings.Mode.get() == "FirstLaunch") {
         chat.print("§0§m==================================================");
         chat.print("§8ScriptName §7: §e§l" + scriptName);
@@ -88,6 +71,7 @@ module.on('enable', function () {
         chat.print("§8ScriptCategory §7: §e§l" + module.category);
         chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
         chat.print("§0§m==================================================");
+        mc.thePlayer.SendChatMessage("More Module For LiquidBounce In : " + scriptGithub);
     };
     if(module.settings.ClientMode.get() == "FDPClient") {
     if(module.settings.Mode.get() == "Fly") {
