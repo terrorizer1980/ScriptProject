@@ -1,10 +1,10 @@
 var scriptName = "MineGlide";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "4.0";
+var scriptVersion = "4.1";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "Mine Glide",
-    version: "4.0",
+    version: "4.1",
     authors: ["DinoFeng"]
 });
 var A = 0;
@@ -70,10 +70,27 @@ module.on('enable', function() {
         chat.print("§8ScriptCategory §7: §e§l" + module.category);
         chat.print("§8ScriptGithub §7: §e§l" + scriptGithub);
         chat.print("§0§m==================================================");
+        module.settings.ToggleMessage.set(false);
     };
     A = 0;
 });
 module.on('update', function() {
+    if(module.settings.CM.get() == "FDPClient") {
+        var Fly = moduleManager.getModule("Fly");
+        var Mode = Fly.getValue("Mode")
+        if(Fly.getState() == false) {
+            Fly.setState(true);
+        }
+        Mode.set("NeruxVace");
+    }
+    if(module.settings.CM.get() == "LiquidBounce") {
+        var Fly = moduleManager.getModule("Glide");
+        var Mode = Fly.getValue("Mode")
+        if(Fly.getState() == false) {
+            Fly.setState(true);
+        }
+        Mode.set("NeruxVace");
+    }
     A++
     if(A==module.settings.Max.get()) {
         A = 0;
