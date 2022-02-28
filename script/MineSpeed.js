@@ -1,16 +1,17 @@
 var scriptName = "MineSpeed";
 var scriptAuthor = "DinoFeng";
-var scriptVersion = "2.3";
+var scriptVersion = "2.5";
 var scriptGithub = "https://github.com/DinoFengz/LiquidBounce";
 var script = registerScript({
     name: "Mine Speed",
-    version: "2.3",
+    version: "2.5",
     authors: ["DinoFeng"]
 });
 var MSpeed = 0;
 var DTick = 0;
 var FTick = 0;
 var BTick = 1;
+var Safez;
 Math.radians = function(degrees) {
     return degrees * Math.PI / 180;
 };
@@ -100,7 +101,15 @@ module.on('enable', function() {
         chat.print("§0§m==================================================");
         module.settings.ADS.set(false);
     };
-
+    if(module.settings.BM.get() == "Timer" || module.settings.BM.get() == "TimerGround" || module.settings.BM.get() == "Speed") {
+        var Saf = moduleManager.getModule("Safewalk");
+        var Safe = Saf.getValue("airsafe");
+        var Saz = Saf.getValue("onlypredictvoid");
+        Safez = Safe.get();
+        Saf.setState(true);
+        Safe.set(true);
+        Saz.set(true);
+    }
 });
 module.on('update', function() {
     if(module.settings.BM.get() == "None" && mc.gameSettings.keyBindForward.pressed) {
@@ -195,5 +204,9 @@ module.on('update', function() {
 });
 module.on('disable', function() {
     Timer(1);
+    var Saf = moduleManager.getModule("Safewalk");
+    var Safe = Saf.getValue("airsafe");
+    Saf.setState(false);
+    Safe.set(Safez);
 });
 });
