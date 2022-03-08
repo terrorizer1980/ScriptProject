@@ -71,8 +71,10 @@ module.on("update", function () {
     mc.timer.timerSpeed = 0.1;
     mc.thePlayer.motionY = 0;
     Tick++
-    if(Tick>module.settings.BoostTickMin.get() && Tick<module.settings.BoostTickMax.get()) {
-        setMoveSpeed(module.settings.Speed.get());
+    if(Tick >= module.settings.BoostTickMin.get()) {
+        if(Tick < module.settings.BoostTickMax.get()) {
+            setMoveSpeed(module.settings.Speed.get());
+        }
     }
     if(Tick==10) {
         Chat.print("Anticheat everytime can ban you!")
@@ -84,5 +86,7 @@ module.on("update", function () {
 module.on("disable", function () {
     Tick = 0;
     mc.timer.timerSpeed = 1;
+    mc.thePlayer.motionX = 0;
+    mc.thePlayer.motionZ = 0;
 });
 });
