@@ -1,1 +1,1 @@
-All script here
+Liquidbounce / FDPClient script here!
