@@ -11,22 +11,10 @@ var C03 = Java.type("net.minecraft.network.play.client.C03PacketPlayer");
 Math.radian = function(deg) {
     return deg * Math.PI / 180;
 }
-function setSpeed(_speed) {
-    var playerYaw = Math.radian(mc.thePlayer.rotationYaw);
-    mc.thePlayer.motionX = _speed * -Math.sin(playerYaw);
-    mc.thePlayer.motionZ = _speed * Math.cos(playerYaw);
-}
-function setDiagSpeed(_speed) {
-    var playerYaw = Math.radian(mc.thePlayer.rotationYaw + 90);
-    mc.thePlayer.motionX = _speed * -Math.sin(playerYaw);
-    mc.thePlayer.motionZ = _speed * Math.cos(playerYaw);
-}
 function setMoveSpeed(_speed) {
-    if (mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown()) {
-        setDiagSpeed(_speed*-mc.thePlayer.moveStrafing);
-    } else {
-        setSpeed(_speed * mc.thePlayer.moveForward);
-    }
+    var playerYaw = Math.radian(mc.thePlayer.rotationYaw);
+    mc.thePlayer.motionX = _speed * mc.thePlayer.moveForward * -Math.sin(playerYaw);
+    mc.thePlayer.motionZ = _speed * mc.thePlayer.moveForward * Math.cos(playerYaw);
 }
 
 var Tick = 0;
@@ -35,6 +23,7 @@ script.registerModule({
     name: "HyCraftFly",
     description: "Fly Script For HyCraft",
     category: "Movement",
+    tag: "NULL",
     settings: {
         Speed:Setting.float({
             name: "Speed",
@@ -50,7 +39,7 @@ script.registerModule({
         }),
         BoostTickMax:Setting.float({
             name: "MaxTick",
-            default: 5,
+            default: 4.2,
             min: 1,
             max: 10
         })
@@ -68,6 +57,7 @@ module.on("packet", function (event) {
     }
 });   
 module.on("update", function () {
+    module.tag = module.settings.BoostTickMin.get().toFixed(1) + " - " + module.settings.BoostTickMax.get().toFixed(1) + " " + module.settings.Speed.get()
     mc.timer.timerSpeed = 0.1;
     mc.thePlayer.motionY = 0;
     Tick++
